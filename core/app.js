@@ -3,31 +3,44 @@ const config = JSON.parse(fs.readFileSync('./config-filters.json'))
 
 function start(){
   if(config!= null || config != undefined){
-    console.log('start',Object.keys(config.steps)[0])
+    console.log('start',Object.keys(config.steps))
+    if (config.steps == undefined || config.steps == null ) {
+      throw new Error('Your config doesn\'t contain any step array')
+    }
     execFilter(Object.keys(config.steps)[0])
   } else {
     throw new Error('Config file doesn\'t exist')
   }
 }
 
-function execFilter(currentStep){
+function execFilter(currentStep, previousResult=null){
+  
   let filter;
+  const step = config.steps[currentStep]
+  if (step.filter == undefined || step.filter == null) {
+    throw new Error('Filter attribute is missing')
+  }
   try {
-    filter = require(`../filters/${config.steps[currentStep].filter}.js`)
+    filter = require(`../filters/${step.filter}.js`)
   } catch (error) {
-    throw new Error( `Filter ${config.steps[currentStep].filter} doesn't exist` )
+    throw new Error( `Filter ${step.filter}.js doesn't exist in filters' folder` )
   }
   if (typeof(filter) != 'function'){
-    throw new Error(`${config.steps[currentStep].filter} is not a function`)
+    throw new Error(`${step.filter} is not a function`)
   }
-  if (config.steps[currentStep].params == undefined){
-    throw new Error( `Parameters expected for filter ${config.steps[currentStep].filter}` ) 
+  console.log()
+  console.log(`Exécution du filter ${step.filter}.js.`)
+  if (step.params == undefined){
+    result = filter(previousResult) == null ? null : filter(previousResult)
+  } else{
+    result = filter(previousResult,step.params.toString()) == null ? null : filter(previousResult,step.params.toString())
   }
-  filter(config.steps[currentStep].params.toString())
-  if (config.steps[currentStep].next==0 || config.steps[currentStep].next== undefined || config.steps[currentStep].next== null){
+
+  // result = filter(previousResult,step.params.toString()) == null ? null : filter(previousResult,step.params.toString())
+  if (step.next==0 || step.next== undefined || step.next== null){
     return
   }
-  execFilter(config.steps[currentStep].next)
+  execFilter(step.next, result)
 }
 
 start()
