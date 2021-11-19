@@ -1,0 +1,21 @@
+{
+  "steps" : {
+    "1": {
+    "filter": "read",
+    "params" : ["D:/Programmes/Foniva-WorkSpace/tp06-framework/fileToRead.txt"],
+    "next": "3"
+    },
+    "2": {
+    "filter": "write",
+    "params" : ["D:/Programmes/Foniva-WorkSpace/tp06-framework/fileWritten.txt"]
+    },
+    "3": {
+    "filter": "capitalize",
+    "next": "4"
+    },
+    "4": {
+    "filter": "reverse",
+    "next": "2"
+    }
+  }
+}
