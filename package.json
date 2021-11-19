@@ -1,0 +1,20 @@
+{
+  "name": "tp06-framework",
+  "version": "1.0.0",
+  "description": "",
+  "main": "./core/app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TheYMK/tp06-framework.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/TheYMK/tp06-framework/issues"
+  },
+  "homepage": "https://github.com/TheYMK/tp06-framework#readme"
+}
