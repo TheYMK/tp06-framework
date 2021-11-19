@@ -30,6 +30,7 @@ function execFilter(currentStep, previousResult=null){
   }
   console.log()
   console.log(`Exécution du filter ${step.filter}.js.`)
+  
   if (step.params == undefined){
     result = filter(previousResult) == null ? null : filter(previousResult)
   } else{
