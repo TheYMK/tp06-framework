@@ -30,12 +30,16 @@ function execFilter(currentStep, previousResult=null){
   }
   console.log()
   console.log(`Exécution du filter ${step.filter}.js.`)
-  
-  if (step.params == undefined){
-    result = filter(previousResult) == null ? null : filter(previousResult)
-  } else{
-    result = filter(previousResult,step.params.toString()) == null ? null : filter(previousResult,step.params.toString())
+  try {
+    if (step.params == undefined){
+      result = filter(previousResult) == null ? null : filter(previousResult)
+    } else{
+      result = filter(previousResult,step.params.toString()) == null ? null : filter(previousResult,step.params.toString())
+    }
+  } catch (error) {
+    throw new Error(`${step.filter}.js cannot be executed`)
   }
+  
 
   // result = filter(previousResult,step.params.toString()) == null ? null : filter(previousResult,step.params.toString())
   if (step.next==0 || step.next== undefined || step.next== null){
