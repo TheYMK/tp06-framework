@@ -3,7 +3,6 @@ const config = JSON.parse(fs.readFileSync('./config-filters.json'))
 
 function start(){
   if(config!= null || config != undefined){
-    console.log('start',Object.keys(config.steps))
     if (config.steps == undefined || config.steps == null ) {
       throw new Error('Your config doesn\'t contain any step array')
     }
@@ -30,18 +29,17 @@ function execFilter(currentStep, previousResult=null){
   }
   console.log()
   console.log(`Exécution du filter ${step.filter}.js.`)
+  params = [previousResult]
+  if (step.params){
+    params.push(...step.params)
+  }
   try {
-    if (step.params == undefined){
-      result = filter(previousResult) == null ? null : filter(previousResult)
-    } else{
-      result = filter(previousResult,step.params.toString()) == null ? null : filter(previousResult,step.params.toString())
-    }
+    result = filter(params)
+    
   } catch (error) {
     throw new Error(`${step.filter}.js cannot be executed`)
   }
   
-
-  // result = filter(previousResult,step.params.toString()) == null ? null : filter(previousResult,step.params.toString())
   if (step.next==0 || step.next== undefined || step.next== null){
     return
   }

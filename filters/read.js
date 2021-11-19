@@ -1,10 +1,10 @@
-module.exports =(previous, filePath)=>{
+module.exports =(input)=>{
   const fs = require('fs')
   let file;
   try {
-    file = fs.readFileSync(filePath, 'utf8')
+    file = fs.readFileSync(input[1], 'utf8')
   } catch (error) {
-    throw new Error( `Cannot read this file; ${filePath}` )
+    throw new Error( `Cannot read this file; ${input[1]}` )
   }
   return file
 }

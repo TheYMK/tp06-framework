@@ -1,4 +1,3 @@
-module.exports = (text)=>{
-  console.log(text)
-  return text.toUpperCase();
+module.exports = (input)=>{
+  return input[0].toUpperCase();
 }

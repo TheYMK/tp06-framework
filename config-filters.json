@@ -2,12 +2,12 @@
   "steps" : {
     "1": {
     "filter": "read",
-    "params" : ["D:/Programmes/Foniva-WorkSpace/tp06-framework/fileToRead.txt"],
+    "params" : ["./fileToRead.txt"],
     "next": "3"
     },
     "2": {
     "filter": "write",
-    "params" : ["D:/Programmes/Foniva-WorkSpace/tp06-framework/fileWritten.txt"]
+    "params" : ["./fileToRead.txt"]
     },
     "3": {
     "filter": "capitalize",
